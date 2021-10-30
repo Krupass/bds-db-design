@@ -1,0 +1,744 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.0
+-- Dumped by pg_dump version 14.0
+
+-- Started on 2021-10-30 15:00:17
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 210 (class 1259 OID 16599)
+-- Name: address; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.address (
+    id_address integer NOT NULL,
+    country character varying(45) NOT NULL,
+    zip_code character varying(45) NOT NULL,
+    city character varying(45) NOT NULL,
+    street_name character varying(45) NOT NULL,
+    house_number character varying(45) NOT NULL
+);
+
+
+ALTER TABLE public.address OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16598)
+-- Name: address_id_address_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.address_id_address_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.address_id_address_seq OWNER TO postgres;
+
+--
+-- TOC entry 3414 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: address_id_address_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.address_id_address_seq OWNED BY public.address.id_address;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16641)
+-- Name: country; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.country (
+    id_country integer NOT NULL,
+    country_name character varying(45) NOT NULL,
+    language character varying(45) NOT NULL,
+    description character varying(255),
+    flag character varying(256)
+);
+
+
+ALTER TABLE public.country OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16640)
+-- Name: country_id_country_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.country_id_country_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.country_id_country_seq OWNER TO postgres;
+
+--
+-- TOC entry 3415 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: country_id_country_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.country_id_country_seq OWNED BY public.country.id_country;
+
+
+--
+-- TOC entry 225 (class 1259 OID 16709)
+-- Name: favourites; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.favourites (
+    id_user integer NOT NULL,
+    id_person integer NOT NULL
+);
+
+
+ALTER TABLE public.favourites OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16694)
+-- Name: genre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genre (
+    id_title integer NOT NULL,
+    id_genre_name integer NOT NULL
+);
+
+
+ALTER TABLE public.genre OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16686)
+-- Name: genre_name; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genre_name (
+    id_genre_name integer NOT NULL,
+    genre_name character varying(45) NOT NULL,
+    description character varying(256)
+);
+
+
+ALTER TABLE public.genre_name OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16685)
+-- Name: genre_name_id_genre_name_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.genre_name_id_genre_name_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.genre_name_id_genre_name_seq OWNER TO postgres;
+
+--
+-- TOC entry 3416 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: genre_name_id_genre_name_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.genre_name_id_genre_name_seq OWNED BY public.genre_name.id_genre_name;
+
+
+--
+-- TOC entry 212 (class 1259 OID 16606)
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id_person integer NOT NULL,
+    first_name character varying(45) NOT NULL,
+    surname character varying(45) NOT NULL,
+    date_of_birth date NOT NULL,
+    id_address integer NOT NULL
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16605)
+-- Name: person_id_person_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.person_id_person_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_id_person_seq OWNER TO postgres;
+
+--
+-- TOC entry 3417 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: person_id_person_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.person_id_person_seq OWNED BY public.person.id_person;
+
+
+--
+-- TOC entry 221 (class 1259 OID 16670)
+-- Name: rating; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rating (
+    id_user integer NOT NULL,
+    id_title integer NOT NULL,
+    rating integer NOT NULL,
+    reason character varying(255)
+);
+
+
+ALTER TABLE public.rating OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 16733)
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.role (
+    id_title integer NOT NULL,
+    id_person integer NOT NULL,
+    id_role integer NOT NULL
+);
+
+
+ALTER TABLE public.role OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16725)
+-- Name: role_name; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.role_name (
+    id_role integer NOT NULL,
+    role_name character varying(45) NOT NULL,
+    description character varying(255)
+);
+
+
+ALTER TABLE public.role_name OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 16724)
+-- Name: role_name_id_role_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.role_name_id_role_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.role_name_id_role_seq OWNER TO postgres;
+
+--
+-- TOC entry 3418 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: role_name_id_role_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.role_name_id_role_seq OWNED BY public.role_name.id_role;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16652)
+-- Name: titles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.titles (
+    id_title integer NOT NULL,
+    name character varying(45) NOT NULL,
+    id_type integer NOT NULL,
+    id_country integer NOT NULL,
+    year integer NOT NULL,
+    lenght integer NOT NULL,
+    description character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.titles OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16651)
+-- Name: titles_id_title_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.titles_id_title_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.titles_id_title_seq OWNER TO postgres;
+
+--
+-- TOC entry 3419 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: titles_id_title_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.titles_id_title_seq OWNED BY public.titles.id_title;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16632)
+-- Name: type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.type (
+    id_type integer NOT NULL,
+    type_name character varying(45) NOT NULL,
+    description character varying(255)
+);
+
+
+ALTER TABLE public.type OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16631)
+-- Name: type_id_type_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.type_id_type_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.type_id_type_seq OWNER TO postgres;
+
+--
+-- TOC entry 3420 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: type_id_type_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.type_id_type_seq OWNED BY public.type.id_type;
+
+
+--
+-- TOC entry 214 (class 1259 OID 16618)
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id_user integer NOT NULL,
+    first_name character varying(45) NOT NULL,
+    surname character varying(45) NOT NULL,
+    nick character varying(45) NOT NULL,
+    id_address integer
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16617)
+-- Name: user_id_user_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_id_user_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_user_seq OWNER TO postgres;
+
+--
+-- TOC entry 3421 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: user_id_user_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_id_user_seq OWNED BY public."user".id_user;
+
+
+--
+-- TOC entry 3215 (class 2604 OID 16602)
+-- Name: address id_address; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.address ALTER COLUMN id_address SET DEFAULT nextval('public.address_id_address_seq'::regclass);
+
+
+--
+-- TOC entry 3219 (class 2604 OID 16644)
+-- Name: country id_country; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.country ALTER COLUMN id_country SET DEFAULT nextval('public.country_id_country_seq'::regclass);
+
+
+--
+-- TOC entry 3221 (class 2604 OID 16689)
+-- Name: genre_name id_genre_name; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre_name ALTER COLUMN id_genre_name SET DEFAULT nextval('public.genre_name_id_genre_name_seq'::regclass);
+
+
+--
+-- TOC entry 3216 (class 2604 OID 16609)
+-- Name: person id_person; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN id_person SET DEFAULT nextval('public.person_id_person_seq'::regclass);
+
+
+--
+-- TOC entry 3222 (class 2604 OID 16728)
+-- Name: role_name id_role; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role_name ALTER COLUMN id_role SET DEFAULT nextval('public.role_name_id_role_seq'::regclass);
+
+
+--
+-- TOC entry 3220 (class 2604 OID 16655)
+-- Name: titles id_title; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.titles ALTER COLUMN id_title SET DEFAULT nextval('public.titles_id_title_seq'::regclass);
+
+
+--
+-- TOC entry 3218 (class 2604 OID 16635)
+-- Name: type id_type; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type ALTER COLUMN id_type SET DEFAULT nextval('public.type_id_type_seq'::regclass);
+
+
+--
+-- TOC entry 3217 (class 2604 OID 16621)
+-- Name: user id_user; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id_user SET DEFAULT nextval('public.user_id_user_seq'::regclass);
+
+
+--
+-- TOC entry 3224 (class 2606 OID 16604)
+-- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.address
+    ADD CONSTRAINT address_pkey PRIMARY KEY (id_address);
+
+
+--
+-- TOC entry 3236 (class 2606 OID 16648)
+-- Name: country country_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.country
+    ADD CONSTRAINT country_pkey PRIMARY KEY (id_country);
+
+
+--
+-- TOC entry 3250 (class 2606 OID 16713)
+-- Name: favourites favourites_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.favourites
+    ADD CONSTRAINT favourites_pkey PRIMARY KEY (id_user, id_person);
+
+
+--
+-- TOC entry 3244 (class 2606 OID 16693)
+-- Name: genre_name genre_name_genre_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre_name
+    ADD CONSTRAINT genre_name_genre_name_key UNIQUE (genre_name);
+
+
+--
+-- TOC entry 3246 (class 2606 OID 16691)
+-- Name: genre_name genre_name_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre_name
+    ADD CONSTRAINT genre_name_pkey PRIMARY KEY (id_genre_name);
+
+
+--
+-- TOC entry 3248 (class 2606 OID 16698)
+-- Name: genre genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre
+    ADD CONSTRAINT genre_pkey PRIMARY KEY (id_title, id_genre_name);
+
+
+--
+-- TOC entry 3226 (class 2606 OID 16611)
+-- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (id_person);
+
+
+--
+-- TOC entry 3242 (class 2606 OID 16674)
+-- Name: rating rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_pkey PRIMARY KEY (id_user, id_title);
+
+
+--
+-- TOC entry 3252 (class 2606 OID 16730)
+-- Name: role_name role_name_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role_name
+    ADD CONSTRAINT role_name_pkey PRIMARY KEY (id_role);
+
+
+--
+-- TOC entry 3254 (class 2606 OID 16732)
+-- Name: role_name role_name_role_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role_name
+    ADD CONSTRAINT role_name_role_name_key UNIQUE (role_name);
+
+
+--
+-- TOC entry 3256 (class 2606 OID 16737)
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT role_pkey PRIMARY KEY (id_title, id_person, id_role);
+
+
+--
+-- TOC entry 3238 (class 2606 OID 16659)
+-- Name: titles titles_id_title_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.titles
+    ADD CONSTRAINT titles_id_title_key UNIQUE (id_title);
+
+
+--
+-- TOC entry 3240 (class 2606 OID 16657)
+-- Name: titles titles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.titles
+    ADD CONSTRAINT titles_pkey PRIMARY KEY (id_title, id_type);
+
+
+--
+-- TOC entry 3232 (class 2606 OID 16637)
+-- Name: type type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type
+    ADD CONSTRAINT type_pkey PRIMARY KEY (id_type);
+
+
+--
+-- TOC entry 3234 (class 2606 OID 16639)
+-- Name: type type_type_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type
+    ADD CONSTRAINT type_type_name_key UNIQUE (type_name);
+
+
+--
+-- TOC entry 3228 (class 2606 OID 16625)
+-- Name: user user_nick_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_nick_key UNIQUE (nick);
+
+
+--
+-- TOC entry 3230 (class 2606 OID 16623)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id_user);
+
+
+--
+-- TOC entry 3266 (class 2606 OID 16719)
+-- Name: favourites fk_favourites_person1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.favourites
+    ADD CONSTRAINT fk_favourites_person1 FOREIGN KEY (id_person) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 3265 (class 2606 OID 16714)
+-- Name: favourites fk_favourites_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.favourites
+    ADD CONSTRAINT fk_favourites_user FOREIGN KEY (id_user) REFERENCES public."user"(id_user);
+
+
+--
+-- TOC entry 3264 (class 2606 OID 16704)
+-- Name: genre fk_genre_genre_name1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre
+    ADD CONSTRAINT fk_genre_genre_name1 FOREIGN KEY (id_genre_name) REFERENCES public.genre_name(id_genre_name);
+
+
+--
+-- TOC entry 3263 (class 2606 OID 16699)
+-- Name: genre fk_genre_titles1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre
+    ADD CONSTRAINT fk_genre_titles1 FOREIGN KEY (id_title) REFERENCES public.titles(id_title);
+
+
+--
+-- TOC entry 3257 (class 2606 OID 16612)
+-- Name: person fk_person_address1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT fk_person_address1 FOREIGN KEY (id_address) REFERENCES public.address(id_address);
+
+
+--
+-- TOC entry 3262 (class 2606 OID 16680)
+-- Name: rating fk_rating_titles1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT fk_rating_titles1 FOREIGN KEY (id_title) REFERENCES public.titles(id_title);
+
+
+--
+-- TOC entry 3261 (class 2606 OID 16675)
+-- Name: rating fk_rating_user1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT fk_rating_user1 FOREIGN KEY (id_user) REFERENCES public."user"(id_user);
+
+
+--
+-- TOC entry 3268 (class 2606 OID 16743)
+-- Name: role fk_role_person1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT fk_role_person1 FOREIGN KEY (id_person) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 3269 (class 2606 OID 16748)
+-- Name: role fk_role_role_name1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT fk_role_role_name1 FOREIGN KEY (id_role) REFERENCES public.role_name(id_role);
+
+
+--
+-- TOC entry 3267 (class 2606 OID 16738)
+-- Name: role fk_role_titles1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT fk_role_titles1 FOREIGN KEY (id_title) REFERENCES public.titles(id_title);
+
+
+--
+-- TOC entry 3260 (class 2606 OID 16665)
+-- Name: titles fk_titles_country1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.titles
+    ADD CONSTRAINT fk_titles_country1 FOREIGN KEY (id_country) REFERENCES public.country(id_country);
+
+
+--
+-- TOC entry 3259 (class 2606 OID 16660)
+-- Name: titles fk_titles_type1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.titles
+    ADD CONSTRAINT fk_titles_type1 FOREIGN KEY (id_type) REFERENCES public.type(id_type);
+
+
+--
+-- TOC entry 3258 (class 2606 OID 16626)
+-- Name: user fk_user_address1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT fk_user_address1 FOREIGN KEY (id_address) REFERENCES public.address(id_address);
+
+
+-- Completed on 2021-10-30 15:00:17
+
+--
+-- PostgreSQL database dump complete
+--
+
